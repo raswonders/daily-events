@@ -1,0 +1,24 @@
+#root {
+  height: 100%;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+.App {
+  height: 100%;
+  width: 100%;
+  padding: 1rem;
+}
+
+.App_title {
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 2rem 0;
+}
+

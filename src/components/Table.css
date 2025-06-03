@@ -1,0 +1,16 @@
+.Table {
+  height: 100%;
+  width: 100%;
+}
+
+.Table_row {
+  position: relative;
+  display: flex;
+  gap: 1rem;
+  border-top: 1px solid #ccc;
+}
+
+.Table_header {
+  position: absolute;
+  transform: translate(-150%, -50%);
+}
