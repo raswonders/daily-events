@@ -15,15 +15,18 @@ function getTime(minutes: number) {
 
 export function Table() {
   return (
-      <div className="Table">
-        {rows.map((row) => (
-          <div key={row.time} className="Table_row">
-            <div className="Table_header">{getTime(row.time)}</div>
-            <div className="Table_cell">
-              {row.events.length === 0 ? "No events" : row.events}
-            </div>
+    <div className="Table">
+      {rows.map((row) => (
+        <div key={row.time} className="Table_row">
+          <div className="Table_header">{getTime(row.time)}</div>
+          <div className="Table_upperCell">
+            {row.events.length > 0 && row.events}
           </div>
-        ))}
-      </div>
-  )
+          <div className="Table_lowerCell">
+            {row.events.length > 0 && row.events}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 }

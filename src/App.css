@@ -1,3 +1,9 @@
+:root {
+  --table-text-color: #6e7681;
+  --table-bg-color: #3c3c3c;
+  --table-border-color: #5e5e5e;
+}
+
 #root {
   height: 100%;
   width: 100%;
@@ -11,14 +17,23 @@ body {
 }
 
 .App {
+  display: flex;
+  flex-direction: column;
   height: 100%;
   width: 100%;
-  padding: 1rem;
 }
 
-.App_title {
+.App_Title {
   font-size: 3rem;
   font-weight: bold;
   margin: 2rem 0;
 }
 
+.App_Table {
+  flex: 1;
+  padding-inline: 5rem;
+  padding-block-start: 2rem;
+  background-color: var(--table-bg-color);
+  border-radius: 1rem;
+  border: 1px solid var(--table-border-color);
+}

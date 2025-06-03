@@ -4,8 +4,10 @@ import { Table } from "./components/Table";
 function App() {
   return (
     <div className="App">
-      <h1 className="App_title">Daily Events</h1>
-      <Table />
+      <h1 className="App_Title">Daily Events</h1>
+      <div className="App_Table">
+        <Table />
+      </div>
     </div>
   );
 }
