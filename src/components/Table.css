@@ -16,7 +16,9 @@
 
 .Table_header {
   position: absolute;
-  transform: translate(-150%, -50%);
+  transform: translate(-150%, -45%);
+  font-size: 0.8rem;
+  font-family: monospace;
 }
 
 .Table_upperCell {

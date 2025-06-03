@@ -31,9 +31,11 @@ body {
 
 .App_Table {
   flex: 1;
-  padding-inline: 5rem;
+  padding-inline-start: 5rem;
+  padding-inline-end: 0.5rem;
   padding-block-start: 2rem;
   background-color: var(--table-bg-color);
   border-radius: 1rem;
   border: 1px solid var(--table-border-color);
+  margin-block-end: 1rem;
 }
