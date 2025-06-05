@@ -1,0 +1,38 @@
+.Dialog_overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.Dialog_content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--table-bg-color);
+  border: 1px solid var(--table-border-color);
+  padding: 24px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.Dialog_close {
+  align-self: end;
+  border-radius: 100%;
+  width: min-content;
+  height: min-content;
+  padding: 4px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Dialog_close:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}

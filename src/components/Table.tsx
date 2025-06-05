@@ -1,5 +1,6 @@
+import { EventDialog } from "./EventDialog";
 import "./Table.css";
-import type { MouseEvent } from "react";
+import { useState, type MouseEvent } from "react";
 
 const rows = Array.from({ length: 24 }, (_, index) => {
   return {
@@ -17,11 +18,18 @@ function getTime(minutes: number) {
 }
 
 export function Table() {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const handleOpenChange = (open: boolean) => {
+    setIsDialogOpen(open);
+  };
+
   const handleCellClick = (event: MouseEvent) => {
     const target = event.target as HTMLElement;
     const cell = target.closest(".Table_upperCell, .Table_lowerCell");
 
     if (cell) {
+      handleOpenChange(true);
       if (cell.classList.contains("Table_upperCell")) {
         console.log(
           "Upper cell clicked at time:",
@@ -37,18 +45,21 @@ export function Table() {
   };
 
   return (
-    <div className="Table" onClick={handleCellClick}>
-      {rows.map((row) => (
-        <div key={row.time} className="Table_row" data-time={row.time}>
-          <div className="Table_header">{getTime(row.time)}</div>
-          <div className="Table_upperCell">
-            {row.events.length > 0 && row.events}
+    <>
+      <div className="Table" onClick={handleCellClick}>
+        {rows.map((row) => (
+          <div key={row.time} className="Table_row" data-time={row.time}>
+            <div className="Table_header">{getTime(row.time)}</div>
+            <div className="Table_upperCell">
+              {row.events.length > 0 && row.events}
+            </div>
+            <div className="Table_lowerCell">
+              {row.events.length > 0 && row.events}
+            </div>
           </div>
-          <div className="Table_lowerCell">
-            {row.events.length > 0 && row.events}
-          </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+      <EventDialog open={isDialogOpen} onOpenChange={handleOpenChange} />
+    </>
   );
 }
