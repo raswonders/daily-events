@@ -6,6 +6,7 @@
 
 .Dialog_content {
   position: fixed;
+  min-width: 300px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -15,7 +16,13 @@
   border-radius: 20px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 1rem;
+}
+
+.Dialog_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .Dialog_close {
@@ -33,6 +40,26 @@
   justify-content: center;
 }
 
+.Dialog_title {
+  margin: 0;
+}
+
 .Dialog_close:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--table-border-color);
+}
+
+.Form_root {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.Form_control {
+  font-family: monospace;
+  box-sizing: border-box;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  width: 100%;
+  border: 1px solid var(--table-border-color);
+  background-color: var(--table-bg-color);
 }
