@@ -1,20 +1,44 @@
 import { Dialog, Form } from "radix-ui";
 import "./EventDialog.css";
 import { X } from "lucide-react";
-import type { FormEvent } from "react";
+import { useEffect, type FormEvent } from "react";
+import supabase from "../lib/supabase-client";
 
 interface Props {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  startTime: number | null;
 }
 
-export function EventDialog({ open, onOpenChange }: Props) {
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+export function EventDialog({ open, onOpenChange, startTime }: Props) {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("Form submitted");
-    console.log(event);
+
+    const formData = new FormData(event.currentTarget);
+    const title = formData.get("title") || "(no-title)";
+    const description = formData.get("description");
+
+    const { error } = await supabase.from("events").insert({
+      title,
+      description,
+      start_time: startTime,
+    });
+
+    if (error) throw error;
+
     onOpenChange(false);
   };
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      const { data, error } = await supabase.from("events").select("*");
+      if (error) throw error;
+
+      console.log(data);
+    };
+
+    fetchEvents();
+  }, []);
 
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>

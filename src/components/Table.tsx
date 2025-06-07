@@ -19,6 +19,7 @@ function getTime(minutes: number) {
 
 export function Table() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [startTime, setStartTime] = useState<number | null>(null);
 
   const handleOpenChange = (open: boolean) => {
     setIsDialogOpen(open);
@@ -31,15 +32,9 @@ export function Table() {
     if (cell) {
       handleOpenChange(true);
       if (cell.classList.contains("Table_upperCell")) {
-        console.log(
-          "Upper cell clicked at time:",
-          getTime(parseInt(cell.parentElement?.dataset.time || "0"))
-        );
+        setStartTime(parseInt(cell.parentElement?.dataset.time || "0"));
       } else if (cell.classList.contains("Table_lowerCell")) {
-        console.log(
-          "Lower cell clicked at time:",
-          getTime(parseInt(cell.parentElement?.dataset.time || "0") + 30)
-        );
+        setStartTime(parseInt(cell.parentElement?.dataset.time || "0") + 30);
       }
     }
   };
@@ -59,7 +54,11 @@ export function Table() {
           </div>
         ))}
       </div>
-      <EventDialog open={isDialogOpen} onOpenChange={handleOpenChange} />
+      <EventDialog
+        open={isDialogOpen}
+        onOpenChange={handleOpenChange}
+        startTime={startTime}
+      />
     </>
   );
 }
