@@ -3,13 +3,24 @@ import { EventDialog } from "./EventDialog";
 import "./Table.css";
 import { useEffect, useState, type MouseEvent } from "react";
 import { getTime } from "../lib/utilities";
+import { MOCK_EVENT_ENTRIES } from "../lib/mock-events";
 
 const rows = Array.from({ length: 24 }, (_, index) => {
   return {
     time: index * 60,
-    events: [],
   };
 });
+
+interface EventTableEntry {
+  id: number;
+  title: string;
+  description: string;
+  startTime: number;
+}
+
+interface EventTable {
+  [key: number]: EventTableEntry[];
+}
 
 // TODO:
 // 1. display EventEntry for each event in database
@@ -18,6 +29,8 @@ const rows = Array.from({ length: 24 }, (_, index) => {
 export function Table() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [startTime, setStartTime] = useState<number | null>(null);
+  const [eventEntries, setEventEntries] =
+    useState<EventTable>(MOCK_EVENT_ENTRIES);
 
   const handleOpenChange = (open: boolean) => {
     setIsDialogOpen(open);
@@ -56,17 +69,22 @@ export function Table() {
           <div key={row.time} className="Table_row" data-time={row.time}>
             <div className="Table_header">{getTime(row.time)}</div>
             <div className="Table_upperCell">
-              <div className="Table_eventEntry">
-                {`${"title"}, ${getTime(row.time)}`}
-              </div>
-              <div className="Table_eventEntry">
-                {`${"title"}, ${getTime(row.time)}`}
-              </div>
+              {eventEntries[row.time] && eventEntries[row.time].length > 0
+                ? eventEntries[row.time].map((entry) => (
+                    <div className="Table_eventEntry" key={entry.id}>
+                      {`${entry.title}, ${getTime(row.time)}`}
+                    </div>
+                  ))
+                : ""}
             </div>
             <div className="Table_lowerCell">
-              <div className="Table_eventEntry">
-                {`${"title"}, ${getTime(row.time + 30)}`}
-              </div>
+              {eventEntries[row.time + 30] && eventEntries[row.time].length > 0
+                ? eventEntries[row.time + 30].map((entry) => (
+                    <div className="Table_eventEntry" key={entry.id}>
+                      {`${entry.title}, ${getTime(row.time)}`}
+                    </div>
+                  ))
+                : ""}
             </div>
           </div>
         ))}
