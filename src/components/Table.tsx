@@ -1,6 +1,8 @@
+import supabase from "../lib/supabase-client";
 import { EventDialog } from "./EventDialog";
 import "./Table.css";
-import { useState, type MouseEvent } from "react";
+import { useEffect, useState, type MouseEvent } from "react";
+import { getTime } from "../lib/utilities";
 
 const rows = Array.from({ length: 24 }, (_, index) => {
   return {
@@ -9,13 +11,9 @@ const rows = Array.from({ length: 24 }, (_, index) => {
   };
 });
 
-function getTime(minutes: number) {
-  const hours = Math.floor(minutes / 60);
-  const minutesRemaining = minutes % 60;
-  return `${hours.toString().padStart(2, "0")}:${minutesRemaining
-    .toString()
-    .padStart(2, "0")}`;
-}
+// TODO:
+// 1. display EventEntry for each event in database
+// 2. display EventEntry for event being edited immediately after EventDialog pops up
 
 export function Table() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -39,6 +37,18 @@ export function Table() {
     }
   };
 
+  useEffect(() => {
+    const fetchEvents = async () => {
+      const { data, error } = await supabase.from("events").select("*");
+      if (error) throw error;
+
+      console.log(data);
+      // TODO save data into events state
+    };
+
+    fetchEvents();
+  }, []);
+
   return (
     <>
       <div className="Table" onClick={handleCellClick}>
@@ -46,10 +56,17 @@ export function Table() {
           <div key={row.time} className="Table_row" data-time={row.time}>
             <div className="Table_header">{getTime(row.time)}</div>
             <div className="Table_upperCell">
-              {row.events.length > 0 && row.events}
+              <div className="Table_eventEntry">
+                {`${"title"}, ${getTime(row.time)}`}
+              </div>
+              <div className="Table_eventEntry">
+                {`${"title"}, ${getTime(row.time)}`}
+              </div>
             </div>
             <div className="Table_lowerCell">
-              {row.events.length > 0 && row.events}
+              <div className="Table_eventEntry">
+                {`${"title"}, ${getTime(row.time + 30)}`}
+              </div>
             </div>
           </div>
         ))}

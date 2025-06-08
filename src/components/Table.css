@@ -12,6 +12,7 @@
   border-top: 1px solid var(--table-border-color);
   border-left: 1px solid var(--table-border-color);
   flex: 1;
+  gap: 1px;
 }
 
 .Table_header {
@@ -23,8 +24,25 @@
 
 .Table_upperCell {
   flex: 1;
+  padding: 0 0.5rem;
+  display: flex;
+  gap: 1px;
 }
 
 .Table_lowerCell {
   flex: 1;
+  display: flex;
+  padding: 0 0.5rem;
+  gap: 1px;
+}
+
+.Table_eventEntry {
+  box-sizing: border-box;
+  flex: 1;
+  padding: 0 0.5rem;
+  color: white;
+  height: 100%;
+  font-size: 12px;
+  background-color: skyblue;
+  border-radius: 8px;
 }

@@ -1,7 +1,7 @@
 import { Dialog, Form } from "radix-ui";
 import "./EventDialog.css";
 import { X } from "lucide-react";
-import { useEffect, type FormEvent } from "react";
+import { type FormEvent } from "react";
 import supabase from "../lib/supabase-client";
 
 interface Props {
@@ -28,17 +28,6 @@ export function EventDialog({ open, onOpenChange, startTime }: Props) {
 
     onOpenChange(false);
   };
-
-  useEffect(() => {
-    const fetchEvents = async () => {
-      const { data, error } = await supabase.from("events").select("*");
-      if (error) throw error;
-
-      console.log(data);
-    };
-
-    fetchEvents();
-  }, []);
 
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
