@@ -49,6 +49,11 @@ export function Table() {
 
     const newEventEntries: EventTable = {};
     for (const event of data) {
+      const originDate = new Date(event.created_at);
+      if (originDate.getDate() !== new Date().getDate()) {
+        continue;
+      }
+
       const { id, title, description, start_time: startTime } = event;
       if (newEventEntries[startTime]) {
         newEventEntries[startTime].push({ id, title, description });
