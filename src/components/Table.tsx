@@ -43,24 +43,24 @@ export function Table() {
     }
   };
 
-  useEffect(() => {
-    const fetchEvents = async () => {
-      const { data, error } = await supabase.from("events").select("*");
-      if (error) throw error;
+  const fetchEvents = async () => {
+    const { data, error } = await supabase.from("events").select("*");
+    if (error) throw error;
 
-      const newEventEntries: EventTable = {};
-      for (const event of data) {
-        const { id, title, description, start_time: startTime } = event;
-        if (newEventEntries[startTime]) {
-          newEventEntries[startTime].push({ id, title, description });
-        } else {
-          newEventEntries[startTime] = [{ id, title, description }];
-        }
+    const newEventEntries: EventTable = {};
+    for (const event of data) {
+      const { id, title, description, start_time: startTime } = event;
+      if (newEventEntries[startTime]) {
+        newEventEntries[startTime].push({ id, title, description });
+      } else {
+        newEventEntries[startTime] = [{ id, title, description }];
       }
+    }
 
-      setEventEntries(newEventEntries);
-    };
+    setEventEntries(newEventEntries);
+  };
 
+  useEffect(() => {
     fetchEvents();
   }, []);
 
@@ -95,6 +95,7 @@ export function Table() {
       <EventDialog
         open={isDialogOpen}
         onOpenChange={handleOpenChange}
+        fetchEvents={fetchEvents}
         startTime={startTime}
       />
     </>

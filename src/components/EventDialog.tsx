@@ -8,9 +8,15 @@ interface Props {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   startTime: number | null;
+  fetchEvents: () => void;
 }
 
-export function EventDialog({ open, onOpenChange, startTime }: Props) {
+export function EventDialog({
+  open,
+  onOpenChange,
+  startTime,
+  fetchEvents,
+}: Props) {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -26,6 +32,7 @@ export function EventDialog({ open, onOpenChange, startTime }: Props) {
 
     if (error) throw error;
 
+    await fetchEvents();
     onOpenChange(false);
   };
 
